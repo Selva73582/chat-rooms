@@ -1,0 +1,30 @@
+<div>
+    {% for room in rooms %}
+<h4>
+    {% if request.user == room.host %}
+    <a href="{% url 'update-room' room.id %}">Edit Me</a> 
+    <a href="{% url 'delete-room' room.id %}"> delete room</a>
+    {% endif %}
+    <span>
+        <a href="{% url 'user-profile' room.host.id %}">{{ room.host.username }}</a>
+    </span>
+    <div>
+        {{ room.id }}-- <a href="{% url 'room' room.id %}">{{ room.name }}</a>
+    </div>
+    <span>
+        {{ room.topic.name }}
+    </span>
+    
+    <hr>
+</h4>
+{% endfor %}
+</div>
+
+<div>
+    {% if can_send_request %}
+        <form method="post" action="{% url 'room' room.id %}">
+            {% csrf_token %}
+            <button type="submit">Send Membership Request</button>
+        </form>
+    {% endif %}
+</div>

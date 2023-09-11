@@ -1,0 +1,33 @@
+<div class="participant-container">
+    <h2>Participants</h2>
+    {% for m in  particpants %}
+    <p>
+        
+        <a href="{% url 'user-profile' m.id %}">{{m.username}}</a> 
+    </p>
+    {% endfor%}
+
+    
+
+   <ul>
+    {% if request.user == room.host %}
+        <h2>Membership Requests</h2>
+
+        <ul>
+            {% for request in membership_requests %}
+                <li>
+                    <a href="{% url 'user-profile' request.user.id %}">{{ request.user.username }}</a> 
+                    <form method="post" action="{% url 'accept-membership-request' request.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="accept">Accept</button>
+                    </form>
+                    <form method="post" action="{% url 'reject-membership-request' request.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="reject">Reject</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>

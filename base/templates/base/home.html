@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<a href="{% url 'create-room' %}"> create room</a>
+
+<div class="Home-container" style="display: grid;grid-template-columns: 1fr 3fr 1fr;">
+    
+
+    <div id="sidbar-container">
+        <h3>
+            Topics
+        </h3>
+        <div>
+            <a href="{% url 'home' %}">All</a>
+        </div>
+        <div>
+            {% include 'base/topic_container.html' %}
+        </div>
+    </div>
+
+    <div>
+        
+        <div>
+            <p>
+                Room count is :{{room_count}}
+            </p>
+        </div>
+            {% include 'base/room_componenet.html' %}
+
+    </div>
+    <div>
+        {% include 'base/activity_component.html' %}
+    </div>
+</div>
+
+{% endblock %}
